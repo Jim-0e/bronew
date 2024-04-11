@@ -73,9 +73,11 @@
   color: red;
 }
 .ul-list{
-  width: 100%;
-  padding-left: 1rem;
-  
+  margin-left: 50%;
+  translate: -50%;
+  li{
+    width: max-content;
+  }
 }
 .item-list{
   display: flex;
@@ -94,11 +96,11 @@
   
   .active{
     /* display: block; */
-    padding-left: 2rem;
+    padding-left: 1rem;
     width: 40%;
     transform: scaleY(1);
     text-align: left;
-    font-size: 15px;
+    font-size: 13px;
     transition: .5s all;
     color: rgb(139, 139, 139);
   }
