@@ -6,16 +6,16 @@
     <ul class="ul-list">
         <li>
               <div  class="nav">
-                  <img width="25" src="/icons/book.png" alt="">
-                  <p @click="isInnerList=!isInnerList" v-if="click" href="#">Справочник <img src="" alt=""></p>
+                  <img width="25" src="/icons/sprav.png" alt="">
+                  <p @click="isInnerList=!isInnerList" v-if="click" href="#">Справочник <img @click="drop" class="img" :class="isInnerList?'rotate-img': 'img'" width="20" src="/icons/drop.png" alt=""></p>
               </div>
            
                 <ul v-if="click" :class="isInnerList?'active': 'no-active'">
- <transition-group name="list">
-                  <li  v-for="item in navLink" :key="item" class="item-list">
-                    <img width="20" :src="item.img" alt="">
-                  <router-link active-class="active-link"  :to="item.to"> {{ item.title }}</router-link>
-                  </li>
+                <transition-group name="list">
+                    <li  v-for="item in navLink" :key="item" class="item-list">
+                      <img width="20" :src="item.img" alt="">
+                    <router-link active-class="active-link"  :to="item.to"> {{ item.title }}</router-link>
+                    </li>
                   </transition-group>
                 </ul>
             
@@ -23,14 +23,14 @@
 
         <li>
             <div  class="nav">
-              <img width="25" src="/icons/metka.png" alt="">
+              <img width="25" src="/icons/about.png" alt="">
               <a v-if="click" href="#">О нас</a>
             </div>
         </li>
 
         <li>
           <div  class="nav">
-              <img width="25" src="/icons/bus.png" alt="">
+              <img width="30" src="/icons/bus.png" alt="">
               <transition name="fade">
                   <a v-if="click" href="#">Транспорт</a>
               </transition>
@@ -48,7 +48,7 @@
             navLink:[
               {id: 0, title: 'Водители', to: '/voditels', img: './icons/voditels.png'},
               {id: 1, title: 'Направления', to: '/napr' , img: './icons/naprav.png'},
-              {id: 2, title: 'Пассажиры', to: '/pass' , img: './icons/pas.png'},
+              {id: 2, title: 'Пассажиры', to: '/passengers' , img: './icons/pas.png'},
               {id: 2, title: 'Города', to: '/cities' , img: './icons/cities.png'},
             ],
             isInnerList: false
@@ -60,6 +60,15 @@
 
 
 <style lang="scss" scoped>
+
+.img{
+  rotate: 0deg;
+  transition: .4s all;
+}
+.rotate-img{
+  rotate: 180deg;
+  transition: .4s all;
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.8s ease;
@@ -87,15 +96,14 @@
 }
   .no-active{
     position: relative;
-    /* top: -50px; */
     transition: .5s all;
-    // transform: scaleY(0);
+    transform: scaleY(0);
     height: 0px;
     opacity: 0;
+    font-size: 13px;
+    
   }
-  
   .active{
-    /* display: block; */
     padding-left: 1rem;
     width: 40%;
     transform: scaleY(1);
@@ -139,6 +147,7 @@
     display: flex;
     justify-content: left;
     transition: .5s all;
+    align-items: center;
     img{
       margin-right: 15px;
     }

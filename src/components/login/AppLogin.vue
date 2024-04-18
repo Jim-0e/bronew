@@ -28,7 +28,7 @@
 
 
 <script>
-import FormLoginVue from './FormLogin.vue'
+import bronewStore from '../../store'
 export default{
     created() {
         this.urlRef = import.meta.env.VITE_APP_URL_REF
@@ -38,7 +38,8 @@ export default{
         return{
             showModal: false,
             urlRef: '',
-            urlAuth: ''
+            urlAuth: '',
+            store: bronewStore(),
         }
     },
     methods:{
@@ -46,29 +47,30 @@ export default{
             this.showModal = !this.showModal
         },
         login(){
-            try{
-                const htmlContent = '<!DOCTYPE html><html><head><title>Новое Окно</title></head><body><h1>войти</h1></body></html>';
-                const loginPage = window.open(this.urlAuth, '_blank', 'no-opener', 'no-referrer',
-                 encodeURIComponent(htmlContent) )
+            const urls = this.urlAuth 
+            const loginWindow = window.open(urls)
                 
-                // console.log(loginUrlTo)
-                loginPage.addEventListener('load', () => {
-                    console.log(loginPage.location.href)
-                    
-                })
-                // const url = new URL(this.urlAuth)
-                // console.log(url)
-            }catch(e){
-                console.log(e)
-            }
-        }
+                const checkToken = () => {
+                        const url = new URL(loginWindow.location.href)
+                        const token = url.searchParams.get('token')
+                    if(token){
+                            localStorage.setItem('token', token)
+                            loginWindow.close()
+                            console.log('es')
+                    }else{
+                            setTimeout(checkToken, 1000) 
+                            console.log('note')
+                     }
+                }
+                checkToken() 
+        },
+        
     },
     provide(){
         return{
             Auth: true
         }
-    },
-    components: {FormLoginVue}
+    }
 }
 </script>
 

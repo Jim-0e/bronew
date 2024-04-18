@@ -1,8 +1,10 @@
 <template>
 
   <div >
-     <app-login-vue v-show="!isAuth">
-    </app-login-vue>
+    <div v-show="!isAuth">
+        <router-view name="login"></router-view>
+    </div>
+
 
     <div v-show="isAuth">
         <app-header @showMenu="OpenMenu"></app-header>
@@ -14,10 +16,11 @@
           </left-nav-vue>
               <!-- Обертка для Контента -->
           <div>
-            <router-view></router-view>
+            <router-view>
+            </router-view>
 
-            <app-footer>
-            </app-footer>
+              <app-footer>
+              </app-footer>
 
           </div>
         </div>
@@ -35,17 +38,30 @@ import AppFooter from './components/Home/AppFooter.vue';
 import LeftNavVue from './components/Home/SideBar.vue'
 import AppLoginVue from './components/login/AppLogin.vue'
 import AppHeader from './components/Home/AppHeader.vue';
-
+import bronewStore from './store';
 
 export default {
   components: { LeftNavVue, AppHeader, AppFooter, AppLoginVue},
   data(){
     return{
       isAuth: true,
+      store: bronewStore(),
       isClose: false,
     }
   },
+  mounted(){
+      this.fetchUser()
+  },
+  computed:{
+    isAuth(){
+      return this.store.userName
+    }
+    
+  },  
   methods:{
+    fetchUser(){
+      this.store.setUserName()
+    },
     OpenMenu(){
         this.isClose = !this.isClose
     }
@@ -68,5 +84,6 @@ div{
 }
 .wrap{
   display: flex;
+  height: max-content;
 }
 </style>

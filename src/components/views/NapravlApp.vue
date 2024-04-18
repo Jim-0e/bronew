@@ -2,19 +2,54 @@
 
     <section>
         <app-slot>
-            <template v-slot:title><h2>Список Направлений</h2></template>
-            <template v-slot:forms>
+            <template v-slot:title>Список Направлений</template>
+            <template v-slot:forms >
                 <div class="inputsWrapp">
-                    <v-text-field   v-model="DirectionFrom"  label="Поиск по Наименованию"></v-text-field>
+                    <v-text-field   v-model="name"  label="Поиск по Наименованию"></v-text-field>
                     <v-text-field   v-model="DirectionTo" label="Поиск по Сокращению"></v-text-field>
                 </div>
                 <div class="btnWrapp">
                     <reset-btn-vue  @click="resetSearch"/>
-                    <search-btn-vue @click="searchPass"/>  
+                    <search-btn-vue @click="setDirections"/>  
                 </div>
             </template>
             <template v-slot:out>
-                <p>Направления</p>
+                <table-app>
+                    <template v-slot:tr>
+                        <th>Наименование</th>
+                        <th>Сокращение</th>
+                        <th>действие</th>
+                    </template>
+                    <template v-slot:td >
+                        <tr v-for="item in directions" :key="item"  show-expand>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.active }}</td>
+                            
+                            </tr>
+                    </template>
+                </table-app>
+
+                <div class="text-center">
+                <v-container>
+                <v-row justify="center" @click="setDirections(page)">
+                    <v-col cols="8">
+                    <v-container  class="max-width">
+                        <v-pagination
+                        v-model="page"
+                        :length="totalDir"
+                        class="my-4"
+                        
+                        >
+                        </v-pagination>
+                    </v-container>
+                    </v-col>
+                </v-row>
+                </v-container>
+            </div>
+            
+            <!--  -->
+           
             </template>
         </app-slot>
     </section>
@@ -26,32 +61,47 @@
 import AppSlot from '../AppSlot.vue'
 import ResetBtnVue from '../../UI/ResetBtn.vue'
 import SearchBtnVue from '../../UI/SearchBtn.vue'
+import axios from 'axios'
+import TableApp from './TableApp.vue'
+import bronewStore from '../../store'
 
 export default{
-    components: {ResetBtnVue, SearchBtnVue, AppSlot},
+    components: {ResetBtnVue, SearchBtnVue, AppSlot,TableApp},
     data(){
         return{
-            DirectionFrom: '',
+            store: bronewStore(),
+            name: '',
             DirectionTo: '',
-            arr: [],
+            page: '',
+        }
+    },
+    mounted(){
+        this.setDirections()
+    },
+    computed:{
+        directions(){
+            return this.store.getDirections
+        },
+        totalDir(){
+            return Math.ceil(this.store.getTotalDir / 30)
         }
     },
     methods: {
+        setDirections(){
+            this.store.setDirections('', this.name)
+        },
         resetSearch(){
-            this.DirectionFrom = null
+            this.name = null
             this.DirectionTo = null
         },
-        async searchPass(){
-            const responce = fetch("https://core.t2.routeam.ru/api/dictionary/directions")
-            this.arr = await responce.json
-            console.log(this.arr)
-        }
+       
     }
     
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
 .inputsWrapp{
     display: flex;
 }

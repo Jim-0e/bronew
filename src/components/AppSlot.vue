@@ -2,12 +2,19 @@
 
     <section>
         
-        <slot name="title"></slot>
+        <h2>
+            <slot name="title">
+         </slot>
+        </h2>
+        
         <div class="wrapper">
-            <form action="">
+            <form action="" @click.prevent="">
                 <slot name="forms"></slot>
             </form>
-            <slot name="out"></slot>
+            <slot name="out">
+               
+            </slot>
+
         </div>
     </section>
         
@@ -26,7 +33,7 @@ export default{
 
 <style scoped>
 form{
-    display: flex;
+    margin-bottom: 3rem;
 }
 form :last-child{
     margin-right: 10px;
@@ -35,14 +42,14 @@ form :last-child{
 h2{
     font-weight: 100;
     color: rgb(108, 108, 108);
-    padding: 1rem  1rem 2rem;
-    background-color: rgb(209, 227, 227);
+   padding: 1rem  1rem 2rem;
+   background-color: rgb(209, 227, 227);
 }
     .wrapper{
         padding: 15px;
         width: 100%;
         background-color: rgb(251, 251, 251);
-        height: 90vh;
+        min-height: 90vh;
         margin-top: 1rem;
         margin-left: 1rem;
     }

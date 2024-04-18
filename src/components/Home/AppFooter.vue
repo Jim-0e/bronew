@@ -9,5 +9,6 @@ footer{
     position: relative;
     background-color: rgb(226, 226, 226);
     padding: 1rem 4rem;
+    text-align: center;
 }
 </style>

@@ -7,9 +7,9 @@
             <div class="bar"></div>
             <div class="bar"></div>
         </li>
-        <li>Продажи</li>
-        <li>Маршруты</li>
-        <li>Отчеты</li>
+        <li><router-link to="#">Продажи</router-link></li>
+        <li><router-link to="/napr">Маршруты </router-link></li>
+        <li><router-link to="#">Отчеты</router-link> </li>
       </ul>
     </header>
 </template>
@@ -23,7 +23,7 @@
       }
     </script>
 
-  <style scoped>
+  <style lang="scss" scoped>
     header{
       width: 100%;
       background-color: rgb(0, 0, 0);
@@ -41,6 +41,10 @@
     }
     ul li{
         list-style-type: none;
+        a{
+          color: white;
+          text-decoration: none;
+        }
     }
     .hamburger {
   
