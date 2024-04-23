@@ -3,6 +3,10 @@
         <template v-slot:title>
            Список пассажиров
         </template>
+        <template v-slot:add>
+                <add-btn>
+                </add-btn>
+         </template>
 
         <template v-slot:forms>
             <div class="inputs-wrapp">
@@ -21,14 +25,9 @@
         <template v-slot:out>
             <table-app>
                 <template v-slot:tr>
-                    <th>Фамилия</th>
-                    <th>Имя</th>
-                    <th>Отчество</th>
-                    <th>Телефон</th>
-                    <th>E-mail</th>
-                    <th>Пол</th>
-                    <th>Серия и номер паспорта</th>
-                    <th>Дата рождения</th>
+                    <th v-for="th in thTable" :key="th">
+                        {{ th }}
+                    </th>                    
                 </template>
 
                 <template v-slot:td >
@@ -38,7 +37,7 @@
                         <td>{{ item.patronymic }}</td> 
                         <td> {{ item.phone }}</td>
                         <td>{{ item.email??'отсутствует' }}</td> 
-                        <td>{{ item.sex }}</td> 
+                        <td>{{ item.sex?'муж': 'жен' }}</td> 
                         <td> 
                             <p v-for="item in item.documents"  :key="item">
                                 {{ item.serial }}
@@ -70,7 +69,6 @@
                 </v-row>
                 </v-container>
             </div>
-            {{ page }}
         </template>
 
     </app-slot>
@@ -82,16 +80,19 @@ import AppSlot from '../AppSlot.vue';
 import bronewStore from '../../store';
 import ResetBtn from '../../UI/ResetBtn.vue';
 import SearchBtn from '../../UI/SearchBtn.vue';
+import AddBtn from '../AddBtn.vue';
 
 export default{
-    components: {AppSlot, TableApp, ResetBtn,SearchBtn},
+    components: {AppSlot, TableApp, ResetBtn,SearchBtn, AddBtn},
     data(){
         return{
             fio:'',
             document: '',
             phone: '',
             page: '',
-            store: bronewStore()
+            store: bronewStore(),
+            thTable: ['Фамилия', 'Имя','Отчество','Телефон','	E-mail','Серия и номер паспорта','Дата рождения',],
+
         }
     },
     mounted(){
@@ -128,5 +129,10 @@ export default{
 <style>
 .inputs-wrapp{
     display: flex;
+    
+}
+.btns-wrapp{
+    
+    gap: 30px;
 }
 </style>

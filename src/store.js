@@ -77,7 +77,7 @@ const bronewStore = defineStore('storeBronew',{
             },
          setDrivers(page='1', query={}){
             console.log(page,'страница')
-            console.log(query.firstname)
+            console.log(query)
             const token = localStorage.getItem('token')
             const headers = {
                 'Authorization': `Bearer ${token}`,

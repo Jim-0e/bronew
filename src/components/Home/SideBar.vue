@@ -2,12 +2,16 @@
 
   <div class="sidebar " :class="click ? 'long': 'small'">
     
-      <img width="100%"  src="/imgs/BusLog.jpeg" alt="">
+      <img class="img-main-sidebar" width="100%" src="/imgs/logos.jpg" alt="">
     <ul class="ul-list">
         <li>
               <div  class="nav">
                   <img width="25" src="/icons/sprav.png" alt="">
-                  <p @click="isInnerList=!isInnerList" v-if="click" href="#">Справочник <img @click="drop" class="img" :class="isInnerList?'rotate-img': 'img'" width="20" src="/icons/drop.png" alt=""></p>
+                  <p @click="isInnerList=!isInnerList" v-if="click" href="#">Справочник 
+                    </p>
+                    <img v-if="click"  @click="isInnerList=!isInnerList" class="img" :class="isInnerList?'rotate-img': 'img'" width="20" src="/icons/drop.png" alt="">
+                  
+                  
               </div>
            
                 <ul v-if="click" :class="isInnerList?'active': 'no-active'">
@@ -25,6 +29,10 @@
             <div  class="nav">
               <img width="25" src="/icons/about.png" alt="">
               <a v-if="click" href="#">О нас</a>
+
+              
+
+
             </div>
         </li>
 
@@ -46,8 +54,8 @@
        data(){
         return{
             navLink:[
-              {id: 0, title: 'Водители', to: '/voditels', img: './icons/voditels.png'},
-              {id: 1, title: 'Направления', to: '/napr' , img: './icons/naprav.png'},
+              {id: 0, title: 'Водители', to: '/drivers', img: './icons/voditels.png'},
+              {id: 1, title: 'Направления', to: '/directions' , img: './icons/naprav.png'},
               {id: 2, title: 'Пассажиры', to: '/passengers' , img: './icons/pas.png'},
               {id: 2, title: 'Города', to: '/cities' , img: './icons/cities.png'},
             ],
@@ -64,6 +72,7 @@
 .img{
   rotate: 0deg;
   transition: .4s all;
+  margin-left: 2rem;
 }
 .rotate-img{
   rotate: 180deg;
@@ -82,8 +91,7 @@
   color: red;
 }
 .ul-list{
-  margin-left: 50%;
-  translate: -50%;
+  margin-left: 1rem;
   li{
     width: max-content;
   }
@@ -113,8 +121,10 @@
     color: rgb(139, 139, 139);
   }
   .active-link{
-    color: rgb(28, 111, 183);
+    color: rgb(0, 0, 0);
     padding-left: 0rem;
+
+    font-weight: bold;
   }
  
   .small{
@@ -122,13 +132,14 @@
     transition: .5s all;
   }
   .sidebar{
-    width: 5%;
+    width: 60px;
     background-color: rgb(248, 248, 248);
     /* height: 20vh; */
     transition: all .5s;
   }
   .long{
-    width: 15%;
+    // width: 15%;
+    width: 220px;
     transition: all .5s;
     min-height: 100vh;
   }
@@ -163,11 +174,12 @@
 a{
   color: rgb(99, 99, 99);
     text-decoration: none;
-    // width: max-content;
-    // transition: .5s all;
+    transition: .3s all;
+    transition: .5s all;
 
 }
 a:hover{
-    color: rgb(22, 179, 214)
+    color: rgb(36, 36, 36);
+    font-weight: bold;
 }
 </style>

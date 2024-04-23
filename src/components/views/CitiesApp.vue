@@ -4,7 +4,10 @@
             <template v-slot:title>
            Список пассажиров
         </template>
-
+        <template v-slot:add>
+                <add-btn>
+                </add-btn>
+         </template>
         <template v-slot:forms>
             <div class="inputs-wrapp">
                     <v-text-field v-model="name"   label="Поиск по наименованию"></v-text-field>
@@ -75,8 +78,9 @@ import AppSlot from '../AppSlot.vue';
 import ResetBtn from '../../UI/ResetBtn.vue';
 import SearchBtn from '../../UI/SearchBtn.vue';
 import bronewStore from '../../store';
+import AddBtn from '../AddBtn.vue';
 export default{
-    components: {AppSlot, SearchBtn,ResetBtn},
+    components: {AppSlot, SearchBtn,ResetBtn, AddBtn},
     data(){
         return{
             store: bronewStore(),

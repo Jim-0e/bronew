@@ -3,3 +3,24 @@
     margin: 0;
     padding: 0;
 }
+.v-pagination__item{
+    border: 1px solid rgb(216, 216, 216);
+    margin: 0 !important;
+}
+.v-pagination__next{
+    
+}
+.v-pagination__next::before{
+    content: ">";
+    width: 30px;
+    position: absolute;
+    height: 30px;
+    margin-top: 10px;
+}
+.v-pagination__prev::before{
+    content: "<";
+    width: 30px;
+    position: absolute;
+    height: 30px;
+    margin-top: 10px;
+}

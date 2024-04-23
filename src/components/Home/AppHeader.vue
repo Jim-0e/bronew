@@ -1,14 +1,16 @@
 <template>
 
     <header>
+      <span class="logo">бронев</span>
       <ul>
+        
         <li @click="showMenu"  class="hamburger" onclick="this.classList.toggle('change')">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
         </li>
         <li><router-link to="#">Продажи</router-link></li>
-        <li><router-link to="/napr">Маршруты </router-link></li>
+        <li><router-link :to="{name: 'directions'}">Маршруты </router-link></li>
         <li><router-link to="#">Отчеты</router-link> </li>
       </ul>
     </header>
@@ -24,11 +26,22 @@
     </script>
 
   <style lang="scss" scoped>
+  .logo{
+    position: absolute;
+    left: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 24px;
+    top: 50%;
+    margin-left: 1rem;
+    translate: 0 -50%;
+    color: rgb(214, 214, 214);
+  }
     header{
       width: 100%;
       background-color: rgb(0, 0, 0);
       color: white;
-
+      position: relative;
      
     }
     ul{
@@ -37,7 +50,7 @@
         padding: 10px;
         justify-content: space-around;
         width: 500px;
-        
+        position: relative;
     }
     ul li{
         list-style-type: none;

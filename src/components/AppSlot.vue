@@ -8,6 +8,11 @@
         </h2>
         
         <div class="wrapper">
+            <slot name="add">
+
+            </slot>
+            
+
             <form action="" @click.prevent="">
                 <slot name="forms"></slot>
             </form>
@@ -31,7 +36,8 @@ export default{
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
 form{
     margin-bottom: 3rem;
 }
@@ -43,7 +49,7 @@ h2{
     font-weight: 100;
     color: rgb(108, 108, 108);
    padding: 1rem  1rem 2rem;
-   background-color: rgb(209, 227, 227);
+   background-color: rgb(255, 255, 255);
 }
     .wrapper{
         padding: 15px;

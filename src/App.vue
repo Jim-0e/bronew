@@ -40,6 +40,7 @@ import AppLoginVue from './components/login/AppLogin.vue'
 import AppHeader from './components/Home/AppHeader.vue';
 import bronewStore from './store';
 
+
 export default {
   components: { LeftNavVue, AppHeader, AppFooter, AppLoginVue},
   data(){
@@ -74,7 +75,7 @@ export default {
     margin-left: 1rem;
 }
 body{
-  background-color: rgb(170, 193, 197);
+  background-color: rgb(200, 214, 216);
 }
 *{
   font-family:Verdana, Geneva, Tahoma, sans-serif;

@@ -2,7 +2,13 @@
 
     <section>
         <app-slot>
-            <template v-slot:title>Список Направлений</template>
+            <template v-slot:title>
+                Список Направлений</template>
+            
+            <template v-slot:add>
+                <add-btn>
+                </add-btn>
+            </template>
             <template v-slot:forms >
                 <div class="inputsWrapp">
                     <v-text-field   v-model="name"  label="Поиск по Наименованию"></v-text-field>
@@ -16,15 +22,13 @@
             <template v-slot:out>
                 <table-app>
                     <template v-slot:tr>
-                        <th>Наименование</th>
-                        <th>Сокращение</th>
-                        <th>действие</th>
+                        <th v-for="th in thTable" :key="th">{{ th }}</th>
                     </template>
                     <template v-slot:td >
                         <tr v-for="item in directions" :key="item"  show-expand>
                                 <td>{{ item.name }}</td>
                                 <td>{{ item.name }}</td>
-                                <td>{{ item.active }}</td>
+                                <td><img src="/icons/глаз.png" alt=""></td>
                             
                             </tr>
                     </template>
@@ -61,18 +65,19 @@
 import AppSlot from '../AppSlot.vue'
 import ResetBtnVue from '../../UI/ResetBtn.vue'
 import SearchBtnVue from '../../UI/SearchBtn.vue'
-import axios from 'axios'
 import TableApp from './TableApp.vue'
 import bronewStore from '../../store'
+import AddBtn from '../AddBtn.vue'
 
 export default{
-    components: {ResetBtnVue, SearchBtnVue, AppSlot,TableApp},
+    components: {ResetBtnVue, SearchBtnVue, AppSlot,TableApp, AddBtn},
     data(){
         return{
             store: bronewStore(),
             name: '',
             DirectionTo: '',
             page: '',
+            thTable: ['Наименование', 'Сокращение', 'Действие']
         }
     },
     mounted(){
@@ -109,9 +114,7 @@ export default{
     width: max-content;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
     position: relative;
-    /* left: 30%; */
     text-align: right;
     top: 0;
 }

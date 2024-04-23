@@ -2,6 +2,10 @@
 
     <app-slot-vue>
         <template v-slot:title>Список водителей</template>
+        <template v-slot:add>
+                <add-btn>
+                </add-btn>
+         </template>
         <template v-slot:forms>
                 <div class="inputs-wrapp">
                     <v-text-field v-model="firstname"   label="Поиск по имени"></v-text-field>
@@ -18,37 +22,39 @@
                     <reset-btn-vue  @click="resetSearch"/>
                     <search-btn-vue  @click="setDrivers()"/> 
                 </div>
+                
         </template>
 
         <template v-slot:out>
             <table-app>
                 <template v-slot:tr>
-                    <th>Фамилия</th>
-                    <th>Имя</th>
-                    <th>Отчество</th>
-                    <th>Пол</th>
-                    <th>Дата рождения</th>
-                    <th>Активность</th>
-                    <th>Действия</th>
+                    <th v-for="th in thTable" :key="th">{{ th }}</th>
+                
                 </template>
                 <template v-slot:td >
-                    <tr v-for="item in drivers" :key="item">
+                    <tr v-for="(item, i) in drivers" :key="i">
                          <td>{{ item.lastname }}</td>
                         <td>{{ item.firstname }}
                         </td>
                        
                         <td>{{ item.patronymic }}</td>
-                        <td>{{ item.sex ==1?'муж': 'жен' }}</td>
+                        <td>{{ item.sex?'муж': 'жен' }}</td>
                         <td>{{ item.birthDate.slice(0,10) }}</td>
-                        <td>{{ item.active?'да':'нет' }} </td>
-                        <td @click="toggleDetails=!toggleDetails">
-                             <img src="/icons/глаз.png" alt="">
-                        
+                        <td> <span class="active-work">{{ item.active?'да':'нет' }}</span> </td>
+                        <td>
+                             <img @click="showCardDriver(item)" :src="cardItemDriver.id == item.id && toggleDetails?'/icons/hidden.png':'/icons/глаз.png'" alt="">
                         </td>
                         
                     </tr>
-                    
-                        
+                        <div v-if="toggleDetails">
+                                <card-driver
+                                    :item="cardItemDriver"
+                                    @closeCard="showCardDriver"
+                                >
+                  
+                                </card-driver>
+                        </div>
+
                 </template>
             </table-app>
 
@@ -81,23 +87,25 @@ import TableApp from './TableApp.vue'
 import bronewStore from '../../store'
 import ResetBtnVue from '../../UI/ResetBtn.vue'
 import SearchBtnVue from '../../UI/SearchBtn.vue'
+import CardDriver from '../../UI/CardDriver.vue'
+import AddBtn from '../AddBtn.vue'
 
 
 export default{
-    components: {AppSlotVue,TableApp, ResetBtnVue, SearchBtnVue},
+    components: {AppSlotVue,TableApp, ResetBtnVue, SearchBtnVue, CardDriver, AddBtn},
     data(){
         return{
             firstname: '',
             lastname: '',
             patronymic: '',
-            active: '',
+            thTable: ['Фамилия', 'Имя','Отчество','Пол','Дата рождения','Активность','Действие'],
             select: '',
             store: bronewStore(),
             countPages: 1,
             toggleDetails: false,
-            // totalItem: '',
             pagec: '1',
             page: '',
+            cardItemDriver: [],
         }
     },
     mounted(){
@@ -113,17 +121,19 @@ export default{
         },
     },
     methods:{
+        showCardDriver(item){
+            this.toggleDetails = !this.toggleDetails
+            this.cardItemDriver = JSON.parse(JSON.stringify(item))
+        },
         pages(page='1'){
             this.pagec = page
             console.log(page, '--')
             this.setDrivers(page)
         },      
         setDrivers(page='1'){
-            console.log(page, '++')
             this.store.setDrivers(`${page}`,{
                 lastname: this.lastname,
                 firstname: this.firstname,
-                active: this.active,
                 patronymic: this.patronymic,
             })
         },
@@ -139,14 +149,16 @@ export default{
 </script>
 
 <style lang="scss" scoped>
+.active-work{
+    padding: 5px;
+    background-color: rgb(47, 255, 89);
+}
 .detail{
     height: 200px;
     position: relative;
 }
 .btns-wrapp{
     width: 250px;
-    display: flex;
-    justify-content: space-between;
 }
 .inputs-wrapp{
     display: flex;
