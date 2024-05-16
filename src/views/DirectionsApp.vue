@@ -62,12 +62,13 @@
 </template>
 
 <script>
-import AppSlot from '../AppSlot.vue'
-import ResetBtnVue from '../../UI/ResetBtn.vue'
-import SearchBtnVue from '../../UI/SearchBtn.vue'
+import AppSlot from '../components/AppSlot.vue'
+import ResetBtnVue from '../UI/ResetBtn.vue'
+import SearchBtnVue from '../UI/SearchBtn.vue'
 import TableApp from './TableApp.vue'
-import bronewStore from '../../store'
-import AddBtn from '../AddBtn.vue'
+import bronewStore from '../store/store'
+import AddBtn from '../components/AddBtn.vue'
+
 
 export default{
     components: {ResetBtnVue, SearchBtnVue, AppSlot,TableApp, AddBtn},
@@ -82,6 +83,7 @@ export default{
     },
     mounted(){
         this.setDirections()
+        // this.setDirect()
     },
     computed:{
         directions(){
@@ -89,16 +91,19 @@ export default{
         },
         totalDir(){
             return Math.ceil(this.store.getTotalDir / 30)
+        },
+        getRoutes(){
+            return this.store.getRoutes
         }
     },
     methods: {
-        setDirections(){
-            this.store.setDirections('', this.name)
-        },
         resetSearch(){
             this.name = null
             this.DirectionTo = null
         },
+        setDirections(){
+            this.store.getDir('1', {name: this.name })
+        }
        
     }
     

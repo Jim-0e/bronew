@@ -74,11 +74,13 @@
 </template>
 
 <script>
-import AppSlot from '../AppSlot.vue';
-import ResetBtn from '../../UI/ResetBtn.vue';
-import SearchBtn from '../../UI/SearchBtn.vue';
-import bronewStore from '../../store';
-import AddBtn from '../AddBtn.vue';
+import AppSlot from '../components/AppSlot.vue';
+import ResetBtn from '../UI/ResetBtn.vue';
+import SearchBtn from '../UI/SearchBtn.vue';
+import bronewStore from '../store/store';
+import AddBtn from '../components/AddBtn.vue';
+
+
 export default{
     components: {AppSlot, SearchBtn,ResetBtn, AddBtn},
     data(){
@@ -104,7 +106,7 @@ export default{
     },
     methods:{
         setCities(page){
-            this.store.setCities(`${page}`, {
+            this.store.getApiCities(`${page}`, {
                 name: this.name,
                 shortName: this.shortName,
                 okato: this.okato,
@@ -119,4 +121,4 @@ export default{
 .inputs-wrapp{
     display: flex;
 }
-</style>
+</style>../../store/store

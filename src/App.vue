@@ -36,13 +36,12 @@
 <script>
 import AppFooter from './components/Home/AppFooter.vue';
 import LeftNavVue from './components/Home/SideBar.vue'
-import AppLoginVue from './components/login/AppLogin.vue'
 import AppHeader from './components/Home/AppHeader.vue';
-import bronewStore from './store';
+import bronewStore from './store/store';
 
 
 export default {
-  components: { LeftNavVue, AppHeader, AppFooter, AppLoginVue},
+  components: { LeftNavVue, AppHeader, AppFooter},
   data(){
     return{
       isAuth: true,

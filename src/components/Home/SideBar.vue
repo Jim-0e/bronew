@@ -3,47 +3,41 @@
   <div class="sidebar " :class="click ? 'long': 'small'">
     
       <img class="img-main-sidebar" width="100%" src="/imgs/logos.jpg" alt="">
+
     <ul class="ul-list">
-        <li>
+
+        <li v-for="(link, i) in links" :key="i">
+
               <div  class="nav">
-                  <img width="25" src="/icons/sprav.png" alt="">
-                  <p @click="isInnerList=!isInnerList" v-if="click" href="#">Справочник 
-                    </p>
-                    <img v-if="click"  @click="isInnerList=!isInnerList" class="img" :class="isInnerList?'rotate-img': 'img'" width="20" src="/icons/drop.png" alt="">
-                  
-                  
+                  <img width="25" :src="link.imgIcon" alt="">
+
+                  <p @click="showList(link)" v-if="click" href="#">
+                    {{link.title}} 
+                  </p>
+
+                  <img v-if="click" 
+                     @click="showList(link)" 
+                     class="img" 
+                     :class="showLinkItem.id == link.id && isInnerList?'rotate-img': 'img'" width="20" 
+                     :src="link.imgDrop"
+                      alt=""
+                  > 
               </div>
            
-                <ul v-if="click" :class="isInnerList?'active': 'no-active'">
+            <ul v-if="click" :class="showLinkItem.id == link.id && isInnerList?'active': 'no-active'">
+
                 <transition-group name="list">
-                    <li  v-for="item in navLink" :key="item" class="item-list">
+                    <li  v-for="item in link.navLink" :key="item" class="item-list">
                       <img width="20" :src="item.img" alt="">
-                    <router-link active-class="active-link"  :to="item.to"> {{ item.title }}</router-link>
+
+                      <router-link active-class="active-link"  :to="item.to">
+                        {{ item.title }}
+                      </router-link>
                     </li>
-                  </transition-group>
-                </ul>
-            
+
+                </transition-group>
+            </ul>
         </li>
-
-        <li>
-            <div  class="nav">
-              <img width="25" src="/icons/about.png" alt="">
-              <a v-if="click" href="#">О нас</a>
-
-              
-
-
-            </div>
-        </li>
-
-        <li>
-          <div  class="nav">
-              <img width="30" src="/icons/bus.png" alt="">
-              <transition name="fade">
-                  <a v-if="click" href="#">Транспорт</a>
-              </transition>
-                </div>
-        </li> 
     </ul>
   </div>
 
@@ -53,14 +47,34 @@
     export default {
        data(){
         return{
-            navLink:[
-              {id: 0, title: 'Водители', to: '/drivers', img: './icons/voditels.png'},
-              {id: 1, title: 'Направления', to: '/directions' , img: './icons/naprav.png'},
-              {id: 2, title: 'Пассажиры', to: '/passengers' , img: './icons/pas.png'},
-              {id: 2, title: 'Города', to: '/cities' , img: './icons/cities.png'},
+            links: [
+              {id: 0, title: 'Справочник', imgIcon: '/icons/sprav.png', imgDrop: '/icons/drop.png', navLink:
+                  [
+                    {id: 0, title: 'Водители', to: '/drivers', img: './icons/voditels.png'},
+                    {id: 1, title: 'Направления', to: '/directions' , img: './icons/naprav.png'},
+                    {id: 2, title: 'Пассажиры', to: '/passengers' , img: './icons/pas.png'},
+                    {id: 2, title: 'Города', to: '/cities' , img: './icons/cities.png'},
+                  ]
+              },
+              {id: 1, title: 'О нас', imgIcon: '/icons/about.png', navLink:[]},
+              {id: 2, title: 'Транспорт',imgIcon: '/icons/bus.png', navLink:[]}
+            
             ],
-            isInnerList: false
+            // navLink:[
+            //   {id: 0, title: 'Водители', to: '/drivers', img: './icons/voditels.png'},
+            //   {id: 1, title: 'Направления', to: '/directions' , img: './icons/naprav.png'},
+            //   {id: 2, title: 'Пассажиры', to: '/passengers' , img: './icons/pas.png'},
+            //   {id: 2, title: 'Города', to: '/cities' , img: './icons/cities.png'},
+            // ],
+            isInnerList: false,
+            showLinkItem: [],
         } 
+    },
+    methods: {
+      showList(item){
+        this.isInnerList = !this.isInnerList
+        this.showLinkItem =  JSON.parse(JSON.stringify(item))
+      }
     },
     props: ["click","activeComponent"]
   }

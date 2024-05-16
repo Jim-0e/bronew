@@ -42,7 +42,8 @@
                         <td>{{ item.birthDate.slice(0,10) }}</td>
                         <td> <span class="active-work">{{ item.active?'да':'нет' }}</span> </td>
                         <td>
-                             <img @click="showCardDriver(item)" :src="cardItemDriver.id == item.id && toggleDetails?'/icons/hidden.png':'/icons/глаз.png'" alt="">
+                             <img @click="showCardDriver(item)" 
+                             :src="cardItemDriver.id == item.id && toggleDetails?'/icons/hidden.png':'/icons/глаз.png'" alt="">
                         </td>
                         
                     </tr>
@@ -82,14 +83,13 @@
 </template>
 
 <script>
-import AppSlotVue from '../AppSlot.vue'
+import AppSlotVue from '../components/AppSlot.vue'
 import TableApp from './TableApp.vue'
-import bronewStore from '../../store'
-import ResetBtnVue from '../../UI/ResetBtn.vue'
-import SearchBtnVue from '../../UI/SearchBtn.vue'
-import CardDriver from '../../UI/CardDriver.vue'
-import AddBtn from '../AddBtn.vue'
-
+import bronewStore from '../store/store'
+import ResetBtnVue from '../UI/ResetBtn.vue'
+import SearchBtnVue from '../UI/SearchBtn.vue'
+import CardDriver from '../UI/CardDriver.vue'
+import AddBtn from '../components/AddBtn.vue'
 
 export default{
     components: {AppSlotVue,TableApp, ResetBtnVue, SearchBtnVue, CardDriver, AddBtn},
@@ -131,7 +131,7 @@ export default{
             this.setDrivers(page)
         },      
         setDrivers(page='1'){
-            this.store.setDrivers(`${page}`,{
+            this.store.getApiDrivers(`${page}`,{
                 lastname: this.lastname,
                 firstname: this.firstname,
                 patronymic: this.patronymic,

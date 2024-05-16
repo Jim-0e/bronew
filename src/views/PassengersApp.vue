@@ -76,11 +76,11 @@
 
 <script>
 import TableApp from './TableApp.vue';
-import AppSlot from '../AppSlot.vue';
-import bronewStore from '../../store';
-import ResetBtn from '../../UI/ResetBtn.vue';
-import SearchBtn from '../../UI/SearchBtn.vue';
-import AddBtn from '../AddBtn.vue';
+import bronewStore from '../store/store';
+import SearchBtn from '../UI/SearchBtn.vue';
+import AddBtn from '../components/AddBtn.vue';
+import ResetBtn from '../UI/ResetBtn.vue';
+import AppSlot from '../components/AppSlot.vue';
 
 export default{
     components: {AppSlot, TableApp, ResetBtn,SearchBtn, AddBtn},
@@ -109,7 +109,7 @@ export default{
     methods:{
         setPassenger(page='1'){
             
-            this.store.setPassengers(`${page}`, 
+            this.store.getApiPassengers(`${page}`, 
             {
                 fio:this.fio,
                 document: this.document,
@@ -135,4 +135,4 @@ export default{
     
     gap: 30px;
 }
-</style>
+</style>../../store/store

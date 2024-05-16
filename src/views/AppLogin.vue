@@ -28,7 +28,8 @@
 
 
 <script>
-import bronewStore from '../../store'
+import bronewStore from '../store/store'
+
 export default{
     created() {
         this.urlRef = import.meta.env.VITE_APP_URL_REF
@@ -57,12 +58,21 @@ export default{
                             localStorage.setItem('token', token)
                             loginWindow.close()
                             console.log('es')
+                            this.store.setUserName()
+                            this.$router.push('/drivers')
                     }else{
+
                             setTimeout(checkToken, 1000) 
                             console.log('note')
                      }
                 }
-                checkToken() 
+                checkToken()
+           
+                    // this.$router.push('/drivers')
+              
+        
+                
+                
         },
         
     },
@@ -127,4 +137,4 @@ u{
         background-color: rgb(239, 239, 239);
         margin-left: 1rem;
     }
-</style>
+</style>../../store/store
